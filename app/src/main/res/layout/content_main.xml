@@ -14,4 +14,70 @@
 
     </android.support.v4.view.ViewPager>
 
+    <SeekBar
+        android:id="@+id/seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:elevation="4dp"
+        android:weightSum="4"
+        app:layout_constraintBottom_toBottomOf="@+id/tabsPager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/songPlayingImage"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:src="@drawable/headphones" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/songPlayingName"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:text="Song"
+                android:textColor="@android:color/black"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/songPlayingArtist"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:text="Artist"
+                android:textColor="@android:color/black"
+                android:textSize="14dp"
+                android:textStyle="italic" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/playPause"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:src="@drawable/play" />
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

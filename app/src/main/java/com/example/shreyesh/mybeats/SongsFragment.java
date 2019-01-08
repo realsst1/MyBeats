@@ -89,8 +89,9 @@ public class SongsFragment extends Fragment {
                         songImage=Bitmap.createBitmap(10,10,Bitmap.Config.ARGB_8888);
                     }
 
+
                     System.out.println("Title:"+title+"\tAlbum:"+album+"\tArtist:"+artist+"\tPath:"+path);
-                    songList.add(new Song(title,artist,album,len,songImage));
+                    songList.add(new Song(title,artist,album,len,songImage,path));
                     songAdapter.notifyDataSetChanged();
 
                 }while (audioCursor.moveToNext());

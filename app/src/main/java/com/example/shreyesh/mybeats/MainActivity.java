@@ -20,6 +20,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -28,6 +31,11 @@ public class MainActivity extends AppCompatActivity
     private SectionsPagerAdapter sectionsPagerAdapter;
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private SeekBar seekBar;
+    private ImageView songPlayingImage,playPause;
+    private TextView songPlayingName,songPlayingArtist;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +69,12 @@ public class MainActivity extends AppCompatActivity
             viewPager.setOffscreenPageLimit(3);
             tabLayout.setupWithViewPager(viewPager);
         }
+
+        seekBar=(SeekBar)findViewById(R.id.seekbar);
+        songPlayingArtist=(TextView)findViewById(R.id.songPlayingArtist);
+        songPlayingName=(TextView)findViewById(R.id.songPlayingName);
+        songPlayingImage=(ImageView)findViewById(R.id.songPlayingImage);
+        playPause=(ImageView)findViewById(R.id.playPause);
 
 
     }

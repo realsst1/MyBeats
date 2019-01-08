@@ -6,6 +6,15 @@ public class Song {
     private String songName,songArtist,songAlbum,songLength;
     private String songImage;
     private Bitmap songBitMapImage;
+    private String songPath;
+
+    public String getSongPath() {
+        return songPath;
+    }
+
+    public void setSongPath(String songPath) {
+        this.songPath = songPath;
+    }
 
     public Song(String songName, String songArtist, String songAlbum, String songLength, Bitmap songBitMapImage) {
         this.songName = songName;
@@ -13,6 +22,23 @@ public class Song {
         this.songAlbum = songAlbum;
         this.songLength = songLength;
         this.songBitMapImage = songBitMapImage;
+    }
+
+    public Song(String songName, String songArtist, String songAlbum, Bitmap songBitMapImage, String songPath) {
+        this.songName = songName;
+        this.songArtist = songArtist;
+        this.songAlbum = songAlbum;
+        this.songBitMapImage = songBitMapImage;
+        this.songPath = songPath;
+    }
+
+    public Song(String songName, String songArtist, String songAlbum, String songLength, Bitmap songBitMapImage, String songPath) {
+        this.songName = songName;
+        this.songArtist = songArtist;
+        this.songAlbum = songAlbum;
+        this.songLength = songLength;
+        this.songBitMapImage = songBitMapImage;
+        this.songPath = songPath;
     }
 
     public Song(String songName, String songArtist, String songAlbum, Bitmap songBitMapImage) {
