@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private SeekBar seekBar;
+     Handler handler;
     private ImageView songPlayingImage,playPause;
     private TextView songPlayingName,songPlayingArtist;
 
@@ -43,9 +45,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        handler=new Handler();
 
-
-
+        seekBar=(SeekBar)findViewById(R.id.seekbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -70,12 +72,22 @@ public class MainActivity extends AppCompatActivity
             tabLayout.setupWithViewPager(viewPager);
         }
 
-        seekBar=(SeekBar)findViewById(R.id.seekbar);
+
         songPlayingArtist=(TextView)findViewById(R.id.songPlayingArtist);
         songPlayingName=(TextView)findViewById(R.id.songPlayingName);
         songPlayingImage=(ImageView)findViewById(R.id.songPlayingImage);
         playPause=(ImageView)findViewById(R.id.playPause);
 
+
+
+        MainActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(SongAdapter.mediaPlayer!=null)
+                    seekBar.setProgress(SongAdapter.mediaPlayer.getCurrentPosition()/1000);
+                handler.postDelayed(this,1000);
+            }
+        });
 
     }
 

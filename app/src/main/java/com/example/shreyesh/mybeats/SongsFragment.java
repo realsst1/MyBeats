@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,6 +31,7 @@ public class SongsFragment extends Fragment {
     private byte[] art;
     private Bitmap songImage;
     private MediaMetadataRetriever metadataRetriever;
+    private SeekBar seekBar;
 
 
     public SongsFragment() {
@@ -46,9 +48,10 @@ public class SongsFragment extends Fragment {
 
 
         songRecylerView=(RecyclerView)view.findViewById(R.id.songList);
+        seekBar=(SeekBar)getActivity().findViewById(R.id.seekbar);
 
         songList=new ArrayList<>();
-        songAdapter=new SongAdapter(songList);
+        songAdapter=new SongAdapter(songList,seekBar);
 
         songRecylerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         songRecylerView.setAdapter(songAdapter);

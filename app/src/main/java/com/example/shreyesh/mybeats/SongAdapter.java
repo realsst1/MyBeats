@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,17 +18,26 @@ import android.widget.TextView;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
+
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
 
 
     private List<Song> songList;
     private Context context;
-    private static MediaPlayer mediaPlayer;
+    public static MediaPlayer mediaPlayer;
     private SeekBar seekBar;
+    private Handler seekbarHandler;
+    private Runnable runnable;
 
     public SongAdapter(List<Song> songList) {
         this.songList = songList;
+    }
+
+    public SongAdapter(List<Song> songList, SeekBar seekBar) {
+        this.songList = songList;
+        this.seekBar = seekBar;
+        seekbarHandler=new Handler();
     }
 
     @NonNull
@@ -55,17 +65,31 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                     if (mediaPlayer.isPlaying()) {
                         mediaPlayer.stop();
                         mediaPlayer.reset();
+                        seekbarHandler.removeCallbacks(runnable);
                         mediaPlayer = MediaPlayer.create(context, Uri.parse(path));
+                        seekBar.setMax(mediaPlayer.getDuration() / 1000);
                         mediaPlayer.start();
                     } else {
                         mediaPlayer = MediaPlayer.create(context, Uri.parse(path));
+                        seekBar.setMax(mediaPlayer.getDuration() / 1000);
                         mediaPlayer.start();
                     }
-                }else{
+                } else {
 
-                        mediaPlayer = MediaPlayer.create(context, Uri.parse(path));
-                        mediaPlayer.start();
-
+                    mediaPlayer = MediaPlayer.create(context, Uri.parse(path));
+                    seekBar.setMax(mediaPlayer.getDuration() / 1000);
+                    mediaPlayer.start();
+                }
+                if (mediaPlayer != null) {
+                    runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            int current = mediaPlayer.getCurrentPosition() / 1000;
+                            seekBar.setProgress(0);
+                            seekBar.setProgress(current);
+                        }
+                    };
+                    seekbarHandler.postDelayed(runnable, 1000);
                 }
             }
         });
@@ -78,6 +102,26 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                 }
             });
         }
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if (b && mediaPlayer!=null) {
+                    mediaPlayer.seekTo(i * 1000);
+                    seekBar.setProgress(i * 1000);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
         holder.setSongName(title);
         holder.setSongArtist(artist);
         holder.setSongArt(art);
