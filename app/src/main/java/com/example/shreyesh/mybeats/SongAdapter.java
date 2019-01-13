@@ -29,6 +29,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     private SeekBar seekBar;
     private Handler seekbarHandler;
     private Runnable runnable;
+    private TextView songName,songArtist;
 
     public SongAdapter(List<Song> songList) {
         this.songList = songList;
@@ -38,6 +39,14 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         this.songList = songList;
         this.seekBar = seekBar;
         seekbarHandler=new Handler();
+    }
+
+    public SongAdapter(List<Song> songList, SeekBar seekBar, TextView songName, TextView songArtist) {
+        this.songList = songList;
+        this.seekBar = seekBar;
+        this.seekbarHandler = new Handler();
+        this.songName = songName;
+        this.songArtist = songArtist;
     }
 
     @NonNull
@@ -52,10 +61,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull SongAdapter.ViewHolder holder, int position) {
 
-        String title=songList.get(position).getSongName();
+        final String title=songList.get(position).getSongName();
         String album=songList.get(position).getSongAlbum();
         String len=songList.get(position).getSongLength();
-        String artist=songList.get(position).getSongArtist();
+        final String artist=songList.get(position).getSongArtist();
         Bitmap art=songList.get(position).getSongBitMapImage();
         final String path=songList.get(position).getSongPath();
         holder.view.setOnClickListener(new View.OnClickListener() {
@@ -69,16 +78,23 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                         mediaPlayer = MediaPlayer.create(context, Uri.parse(path));
                         seekBar.setMax(mediaPlayer.getDuration() / 1000);
                         mediaPlayer.start();
+                        songName.setText(title);
+                        songArtist.setText(artist);
                     } else {
                         mediaPlayer = MediaPlayer.create(context, Uri.parse(path));
                         seekBar.setMax(mediaPlayer.getDuration() / 1000);
                         mediaPlayer.start();
+                        songName.setText(title);
+                        songArtist.setText(artist);
+
                     }
                 } else {
 
                     mediaPlayer = MediaPlayer.create(context, Uri.parse(path));
                     seekBar.setMax(mediaPlayer.getDuration() / 1000);
                     mediaPlayer.start();
+                    songName.setText(title);
+                    songArtist.setText(artist);
                 }
                 if (mediaPlayer != null) {
                     runnable = new Runnable() {

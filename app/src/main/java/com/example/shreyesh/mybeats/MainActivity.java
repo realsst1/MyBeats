@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
     private SeekBar seekBar;
      Handler handler;
     private ImageView songPlayingImage,playPause;
-    private TextView songPlayingName,songPlayingArtist;
+    public static TextView songPlayingName,songPlayingArtist;
 
 
 
@@ -83,9 +83,24 @@ public class MainActivity extends AppCompatActivity
         MainActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(SongAdapter.mediaPlayer!=null)
-                    seekBar.setProgress(SongAdapter.mediaPlayer.getCurrentPosition()/1000);
+                if(SongAdapter.mediaPlayer!=null) {
+                    seekBar.setProgress(SongAdapter.mediaPlayer.getCurrentPosition() / 1000);
+
+                }
                 handler.postDelayed(this,1000);
+            }
+        });
+
+        playPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(SongAdapter.mediaPlayer.isPlaying()){
+                    SongAdapter.mediaPlayer.pause();
+                    playPause.setImageResource(R.drawable.pause);
+                }else{
+                    SongAdapter.mediaPlayer.start();
+                    playPause.setImageResource(R.drawable.play);
+                }
             }
         });
 
