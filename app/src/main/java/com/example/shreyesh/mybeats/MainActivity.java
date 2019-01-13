@@ -34,8 +34,9 @@ public class MainActivity extends AppCompatActivity
     private TabLayout tabLayout;
     private SeekBar seekBar;
      Handler handler;
-    private ImageView songPlayingImage,playPause;
+    public static ImageView songPlayingImage,playPause;
     public static TextView songPlayingName,songPlayingArtist;
+
 
 
 
@@ -96,15 +97,16 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 if(SongAdapter.mediaPlayer.isPlaying()){
                     SongAdapter.mediaPlayer.pause();
-                    playPause.setImageResource(R.drawable.pause);
+                    playPause.setImageResource(R.drawable.play);
                 }else{
                     SongAdapter.mediaPlayer.start();
-                    playPause.setImageResource(R.drawable.play);
+                    playPause.setImageResource(R.drawable.pause);
                 }
             }
         });
 
     }
+
 
     @Override
     public void onBackPressed() {

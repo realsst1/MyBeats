@@ -80,12 +80,16 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                         mediaPlayer.start();
                         songName.setText(title);
                         songArtist.setText(artist);
+                        //((MainActivity)context).setButton();
+                        MainActivity.playPause.setImageResource(R.drawable.pause);
                     } else {
                         mediaPlayer = MediaPlayer.create(context, Uri.parse(path));
                         seekBar.setMax(mediaPlayer.getDuration() / 1000);
                         mediaPlayer.start();
                         songName.setText(title);
                         songArtist.setText(artist);
+                        //((MainActivity)context).setButton();
+                        MainActivity.playPause.setImageResource(R.drawable.pause);
 
                     }
                 } else {
@@ -95,6 +99,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                     mediaPlayer.start();
                     songName.setText(title);
                     songArtist.setText(artist);
+                    //((MainActivity)context).setButton();
+                    MainActivity.playPause.setImageResource(R.drawable.pause);
                 }
                 if (mediaPlayer != null) {
                     runnable = new Runnable() {
